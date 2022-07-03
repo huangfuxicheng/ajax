@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>五种状态</title>
+    <style>
+        #content {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h3>小试牛刀</h3>
+<div id="content"></div>
+<button id="btn">点我发送请求（原生js-ajax-get）</button>
+<script type="text/javascript">
+  const btn = document.getElementById('btn');
+  const content = document.getElementById('content');
+  btn.onclick = () => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === 1){
+            xhr.setRequestHeader('demo',123);
+        }
+        if(xhr.readyState === 2){
+
+        }
+        if(xhr.readyState === 3){
+            console.log(xhr.response)
+            console.log(xhr.getAllResponseHeaders())
+            console.log(xhr.getResponseHeader('content-length'))
+        }
+      if (xhr.readyState === 4 && (xhr.status>=200 && xhr.status <300)) {
+        console.log(xhr.response);
+        content.innerHTML = `<h3>${xhr.response}</h3>`
+      }
+    }
+    xhr.open("GET", 'http://127.0.0.1:8080/test_get');
+    xhr.send()
+  }
+</script>
+</body>
+</html>
