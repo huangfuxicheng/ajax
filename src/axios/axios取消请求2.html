@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios取消请求2</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<button id="btn1">点我获取所有人的信息</button>
+<button id="btn2">点我获取所有人的信息</button>
+<script type="text/javascript">
+    const btn1 =document.getElementById("btn1");
+    const btn2 =document.getElementById("btn2");
+    const {CancelToken,isCancel} = axios
+    let cancel
+    btn1.onclick =()=>{
+        if(cancel) cancel()
+        axios({
+            url:"http://localhost:3000/students",
+            method: "GET",
+            cancelToken: new CancelToken((c)=>{
+                cancel = c
+            })
+        }).then(
+            response=>{console.log(response)},
+            error=>{
+                if(isCancel(error)){
+                    console.log('用户取消',error.message)
+                }else {
+                    console.log(error)
+                }
+                 }
+        )
+    }
+    btn2.onclick=()=>{
+        cancel('')
+    }
+
+
+</script>
+</body>
+</html>
