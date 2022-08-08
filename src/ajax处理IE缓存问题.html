@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax处理IEGET请求缓存问题</title>
+    <style>
+        #content {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h3>ajax处理IE缓存问题</h3>
+<button id="btn">点我发送请求（原生js-ajax-get）</button>
+<div id="content"></div>
+<script>
+    const btn = document.getElementById('btn');
+    const content = document.getElementById('content');
+    btn.onclick = () => {
+        const xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+
+                const {name, age, sex} = JSON.parse(xhr.response)
+                content.innerHTML = `<ul>
+                                        <li>${name}</li>
+                                        <li>${age}</li>
+                                        <li>${sex}</li>
+                                        </ul>`
+
+            }
+        }
+        xhr.open("GET", "http://127.0.0.1:8080/get_person?"+Date.now())
+        //responseType用于指定返回数据的格式
+        xhr.responseType ='json'
+        xhr.send()
+    }
+</script>
+</body>
+</html>
