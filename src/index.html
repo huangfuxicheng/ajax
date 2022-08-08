@@ -7,6 +7,19 @@
 <body>
 <script src="../index.js"></script>
 <button id="btn">按钮</button>
-<script type="text/javascript" src=""
+<script>
+    const btn = document.getElementById("btn");
+    btn.onclick = ()=>{
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange =()=>{
+            if(xhr.readyState === 4){
+                console.log("ok")
+            }
+
+        }
+        xhr.open("GET","http://localhost:8080")
+        xhr.send()
+    }
+</script>
 </body>
 </html>

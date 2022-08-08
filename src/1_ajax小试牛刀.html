@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GET请求</title>
+    <title>1_ajax小试牛刀</title>
     <style>
         #content {
             width: 300px;
@@ -13,24 +13,29 @@
 </head>
 <body>
 <h3>小试牛刀</h3>
-<div id="content"></div>
 <button id="btn">点我发送请求（原生js-ajax-get）</button>
+<div id="content"></div>
 <script type="text/javascript">
+    //获取按钮
     const btn = document.getElementById('btn');
     const content = document.getElementById('content');
+    //给按钮绑定监听
     btn.onclick = () => {
+        //1.创建xhr实例对象
         const xhr = new XMLHttpRequest();
-
+        //绑定监听
         xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && (xhr.status>=200 && xhr.status <300)) {
+            if (xhr.readyState === 4) {
                 console.log(xhr.response);
                 content.innerHTML = `<h3>${xhr.response}</h3>`
             }
         }
-        // xhr.open("GET", 'http://127.0.0.1:8080/test_get1?name=zhangsan&age=18');
-        xhr.open("GET", 'http://127.0.0.1:8080/test_get2/zhangsan/18');
+        //2.指定发送请求的:method、url
+        xhr.open("GET", 'http://127.0.0.1:8080/test_get');
+        //3.发送请求
         xhr.send()
     }
+
 </script>
 </body>
 </html>

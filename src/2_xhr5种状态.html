@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2_xhr5种状态</title>
+  <style>
+    #content {
+      width: 300px;
+      height: 300px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+<button id="btn">按钮</button>
+<div id="content"></div>
+<script>
+  //xhr实例对象，在实例出来的那一刻状态就是0 /*
+  // xhr内部有5种状态，值分别为：0、1、2、3 4
+  // 0:实例出来的那一刻状态就是0，初始状态。
+  // 1:open已经调用了，但是send还没有调用，此时可以修改请求头内容。
+  // 2:send已经调用了，已经无法修改请求头
+  // 3: 已经回来一部分数据了，小的数据会在此阶段一次性接收完毕，较大的数据有待进一步接收，响应头回来了。
+  // 4:数据全部接收完毕
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange =()=>{
+    if(xhr.readyState === 1){
+      xhr.setRequestHeader("content-type","")
+    }
+    if(xhr.readyState === 2){
+      xhr.setRequestHeader("content-type","")//报错
+    }
+    if(xhr.readyState === 3){
+      console.log(xhr.response)
+      console.log(xhr.getResponseHeader('content=length'));
+      console.log(xhr.getAllResponseHeaders());
+    }
+    if(xhr.readyState === 4 && (xhr.status >=200 && xhr.status <300) ){
+      console.log(xhr.response)
+    }
+  }
+  xhr.open("GET","http://localhost:8080")
+  xhr.send()
+</script>
+</body>
+</html>

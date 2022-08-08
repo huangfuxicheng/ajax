@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ajax</title>
+    <title>GET请求</title>
     <style>
         #content {
             width: 300px;
@@ -20,13 +20,18 @@
     const content = document.getElementById('content');
     btn.onclick = () => {
         const xhr = new XMLHttpRequest();
+
         xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
+            if (xhr.readyState === 4 && (xhr.status>=200 && xhr.status <300)) {
                 console.log(xhr.response);
                 content.innerHTML = `<h3>${xhr.response}</h3>`
             }
         }
-        xhr.open("GET", 'http://127.0.0.1:8080/test_get');
+        //2.指定发送请求的:method、url、参数
+        //1,形如：key=value&key=value就是query参数的urlencoded编码形式
+        // 2.形如：/xx/xxx/老刘/18就是params参数
+        // xhr.open("GET", 'http://127.0.0.1:8080/test_get1?name=zhangsan&age=18');
+        xhr.open("GET", 'http://127.0.0.1:8080/test_get2/zhangsan/18');
         xhr.send()
     }
 </script>
