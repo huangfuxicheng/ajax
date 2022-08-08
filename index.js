@@ -25,16 +25,24 @@ app.get('/get_person',(req, res)=>{
     const person = {name:'zs',age: 18, sex: '女'}
     res.send(JSON.stringify(person))
 })
-app.get('/get_person1',(req, res)=>{
+app.get('/get_person1_delay',(req, res)=>{
     const person = {name:'zs',age: 18, sex: '女'}
     setTimeout(()=>{
             res.send(JSON.stringify(person))
-        },3000
-    )
+        },3000)
 })
 app.post('/test_post',(req, res)=>{
     res.send('hello world')
     console.log(req.body)
+})
+
+app.post('/test_jquery_post',(req, res)=>{
+    const car = {name:'马自达1',price: "18w"}
+    res.send(JSON.stringify(car))
+})
+app.get('/test_jquery_get',(req, res)=>{
+    const car = {name:'马自达1',price: "18w"}
+    res.send(JSON.stringify(car))
 })
 //监听
 app.listen(8080,(err)=>{

@@ -36,7 +36,8 @@
 
       }
     }
-    xhr.open("GET", "http://127.0.0.1:8080/get_person1")
+    xhr.open("GET", "http://127.0.0.1:8080/get_person1_delay")
+    xhr.timeout = 2000
     //responseType用于指定返回数据的格式
     xhr.responseType ='json'
     xhr.send()
