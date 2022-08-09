@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">按钮</button>
+<script type="text/javascript">
+    const btn = document.getElementById('btn');
+
+    // btn.onclick = () => {
+    //     const xhr = new XMLHttpRequest()
+    //     xhr.onreadystatechange = () => {
+    //         if (xhr.readyState === 4) {
+    //             console.log(xhr.response)
+    //         }
+    //     }
+    //     xhr.open("GET", "http://127.0.0.1:8080/test_get")
+    //     xhr.send()
+    // }
+    function demo(a){
+        console.log(a);
+    }
+    //1.创建script节点
+    // const scriptNode document.createElement('script')
+    // 2.给节点指定src属性（请求地址）
+    // scriptNode.src 'http://localhost:8080/test_jsonp'
+    // 3.将节点放入页面 document.body.appendChild(scriptNode)
+    //模板字符串toString对象[]
+    btn.onclick=()=>{
+        const scriptNode = document.createElement('script')
+        scriptNode.src = 'http://127.0.0.1:8080/test_jsonp'
+        document.body.appendChild(scriptNode)
+        window.demo=(a)=>{
+            console.log(a);
+        }
+    }
+</script>
+<script type="text/javascript" src="http://127.0.0.1:8080/test_jsonp"></script>
+</body>
+</html>

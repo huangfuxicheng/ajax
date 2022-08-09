@@ -44,6 +44,15 @@ app.get('/test_jquery_get',(req, res)=>{
     const car = {name:'马自达1',price: "18w"}
     res.send(JSON.stringify(car))
 })
+app.get('/test_jsonp',(request,response)=>{
+    console.log(request)
+    // response.send('alert(1)')
+    // response.send('demo(1)')
+    const person = {name:'tom',age:18}
+    response.send(`demo(${JSON.stringify((person))})`)
+})
+
+
 //监听
 app.listen(8080,(err)=>{
     if(!err) console.log('ok')
