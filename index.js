@@ -1,5 +1,6 @@
 //引入express
 const express = require('express')
+const cors = require('cors')
 const {response} = require("express");
 //创建app实例对象
 const app = express();
@@ -7,6 +8,7 @@ const app = express();
 app.use(express.static(__dirname+'/src'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(cors())
 app.get('/test_get',(req, res)=>{
     res.send('hello world')
 })
@@ -18,7 +20,10 @@ app.get('/test_get1',(req, res)=>{
 })
 
 app.get('/test_get2/:name/:age',(req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin','http://localhost:63342')//*
+    res.setHeader('Access-Control-Expose-Headers','*')//全部响应头返回前端
     res.send('hello world')
+
     console.log(req.params)
 })
 app.get('/get_person',(req, res)=>{
@@ -45,13 +50,24 @@ app.get('/test_jquery_get',(req, res)=>{
     res.send(JSON.stringify(car))
 })
 app.get('/test_jsonp',(request,response)=>{
-    console.log(request)
+    const {callback} = request.query
+    // console.log(request)
     // response.send('alert(1)')
     // response.send('demo(1)')
     const person = {name:'tom',age:18}
-    response.send(`demo(${JSON.stringify((person))})`)
+    response.send(`${callback}(${JSON.stringify((person))})`)
 })
 
+app.options('/test_put',(request,response)=>{
+    response.setHeader('Access-Control-Allow-Origin','*')
+    response.setHeader('Access-Control-Expose-Headers','*')
+    response.setHeader('Access-Control-Allow-Methods','*')
+    response.send() })
+app.put('/test_put',(request,response)=>{
+    response.setHeader('Access-Control-Allow-Origin','*')
+    response.setHeader('Access-Control-Expose-Headers','*')
+    response.send('hello_test_put')
+})
 
 //监听
 app.listen(8080,(err)=>{

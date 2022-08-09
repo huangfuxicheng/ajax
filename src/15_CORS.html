@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">按钮</button>
+<script type="text/javascript">
+    const btn = document.getElementById('btn')
+    btn.onclick=()=>{
+        const xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = ()=>{
+           if(xhr.readyState === 4){
+               console.log(xhr.response)
+           }
+        }
+        xhr.open("GET","http://127.0.0.1:8080/test_get2/zhangsan/18")
+        xhr.send()
+    }
+</script>
+</body>
+</html>

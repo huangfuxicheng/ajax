@@ -27,16 +27,20 @@
     // 2.给节点指定src属性（请求地址）
     // scriptNode.src 'http://localhost:8080/test_jsonp'
     // 3.将节点放入页面 document.body.appendChild(scriptNode)
+    //4.准备好一个函数
+    // window.peiqi =(a)=>{ console.log(a); }
+    // 5.移除已经使用过的script节点
+    // document.body.removechild(scriptNode)
     //模板字符串toString对象[]
     btn.onclick=()=>{
         const scriptNode = document.createElement('script')
-        scriptNode.src = 'http://127.0.0.1:8080/test_jsonp'
+        scriptNode.src = 'http://127.0.0.1:8080/test_jsonp?callback=test'
         document.body.appendChild(scriptNode)
-        window.demo=(a)=>{
+        window.test=(a)=>{
             console.log(a);
         }
     }
 </script>
-<script type="text/javascript" src="http://127.0.0.1:8080/test_jsonp"></script>
+<!--<script type="text/javascript" src="http://127.0.0.1:8080/test_jsonp"></script>-->
 </body>
 </html>
