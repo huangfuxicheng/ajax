@@ -46,6 +46,15 @@
         console.log(config);
         return config
     })
+    axios.interceptors.response.use(
+        response =>{
+            return response.data
+        },
+        error =>{
+            console.log(error)
+            return new Promise(()=>{})
+        }
+    )
     btn1.onclick =()=>{
         axios({
             url:'http://localhost:5000/persons',
