@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios的基本使用</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<button id="btn1">点我获取所有人的信息</button>
+<br/>
+<input id="person_id" type="text" placeholder="输入ID"/>
+<button id="btn2">点我获取某个人的信息</button>
+<br/>
+<input id="person_name" type="text" placeholder="输入姓名"/>
+<input id="person_age" type="text" placeholder="输入年龄"/>
+<button id="btn3">添加一个人的信息</button>
+<br/>
+<input id="person_update_id" type="text" placeholder="输入一个人的id"/>
+<input id="person_update_age" type="text" placeholder="输入一个人的年龄"/>
+<input id="person_update_name" type="text" placeholder="输入一个人的姓名"/>
+<button id="btn4">更新一个人的信息</button>
+<br/>
+<input id="person_delete_id" type="text" placeholder="输入一个人的id"/>
+<button id="btn5">删除一个人的信息</button>
+<script type="text/javascript">
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const btn3 = document.getElementById("btn3");
+    const btn4 = document.getElementById("btn4");
+    const btn5 = document.getElementById("btn5");
+    const personId = document.getElementById("person_id");
+    const personName = document.getElementById("person_name");
+    const personAge = document.getElementById("person_age");
+    const personUpdateId = document.getElementById("person_update_id");
+    const personDeleteId = document.getElementById("person_delete_id");
+    const personUpdateName = document.getElementById("person_update_name");
+    const personUpdateAge = document.getElementById("person_update_age");
+    //获取所有人的信息--发送GET请求---不携带参数
+    btn1.onclick = () => {
+        // const result = axios({
+        //     method: "GET",//请求方式
+        //     timeout: 2000,//超时时间
+        //     url: "http://localhost:5000/test1?delay=3000"//请求地址
+        // })
+        // // console.log(result);//Promise
+        // result.then(
+        //     response => {
+        //         console.log(response)
+        //     },
+        //     error => {
+        //         console.log(error)
+        //     }
+        // )
+        axios.get("http://localhost:5000/persons").then(
+            response => {
+                console.log('ok', response)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+    //获取所有人的信息--发送GET请求---携带参数query
+    btn2.onclick = () => {
+        // axios({
+        //     url: "http://localhost:5000/person",
+        //     method:"GET",
+        //     params:{id: personId.value}//此处写的是params,但携带的是query参数
+        // }).then(
+        //     response=>{console.log(response)},
+        //     error=>{console.log(error) }
+        // )
+        axios.get("http://localhost:5000/person", {params: {id: personId.value}}).then(
+            response => {
+                console.log(response)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+    //添加一个人--发送P0sT请求--携带json编码参数或urlencoded编码
+    btn3.onclick = () => {
+        // axios({
+        //     url: "http://localhost:3000/students",
+        //     method: "POST",
+        //     data:{
+        //         name: personName.value,
+        //         age: personAge.value
+        //     }
+        // }).then(
+        //         response=>{console.log(response)},
+        //         error=>{console.log(error) }
+        //     )
+        //     axios({
+        //         url: "http://localhost:3000/students",
+        //         method: "POST",
+        //         data:`name=${personName.value}&age=${personAge.value}`
+        //     }).then(
+        //         response=>{console.log(response)},
+        //         error=>{console.log(error) }
+        //     )
+        // axios.post("http://localhost:3000/students", {
+        //     name: personName.value,
+        //     age: personAge.value
+        // }).then(
+        //     response => {
+        //         console.log(response)
+        //     },
+        //     error => {
+        //         console.log(error)
+        //     }
+        // )
+        axios({
+            url: 'http://localhost:5000/person',
+            method: 'POST',
+            //data:{name:personName.value,age:personAge.value},//json
+            data: `name=${personName.value}&age=${personAge.value}`//urlencoded
+        }).then(
+            response => {
+                console.log(response);
+            },
+            reason => {
+                console.log(reason)
+            }
+        )
+        // axios.post('http://localhost:5000/person',{name:personName.value,age:personAge.value}).then(
+        //     response=>{console.log(response);},
+        //     reason => {console.log(reason)}
+        // )
+    }
+    btn4.onclick = () => {
+        // axios({
+        //     url: `http://localhost:5000/person`,
+        //     method: "PUT",
+        //     data: {
+        //         id: personUpdateId.value,
+        //         name: personUpdateName.value,
+        //         age: personUpdateAge.value,
+        //     }
+        // }).then(
+        //     response => {
+        //         console.log(response)
+        //     },
+        //     error => {
+        //         console.log(error)
+        //     }
+        // )
+        //json-server服务器
+        // axios.put(`http://localhost:3000/students/${personUpdateId.value}`, {
+        //     name: personUpdateName.value,
+        //     age: personUpdateAge.value,
+        // }).then(
+        //     response => {
+        //         console.log(response)
+        //     },
+        //     error => {
+        //         console.log(error)
+        //     }
+        // )
+    }
+    btn5.onclick = () => {
+        console.log(personDeleteId.value)
+        axios({
+            url: `http://localhost:5000/person/${personDeleteId.value}`,
+            method: "DELETE"
+        }).then(
+            response => {
+                console.log(response)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+        // axios.delete(`http://localhost:5000/person/${personDeleteId.value}`).then(
+        //     response => {
+        //         console.log(response)
+        //     },
+        //     error => {
+        //         console.log(error)
+        //     }
+        // )
+    }
+</script>
+</body>
+</html>
